@@ -25,6 +25,7 @@ i386_softmmu_ss.add(when: 'CONFIG_SEV', if_true: files('sev.c'), if_false: files
 i386_user_ss = ss.source_set()
 
 subdir('kvm')
+subdir('aehd')
 subdir('hax')
 subdir('whpx')
 subdir('nvmm')

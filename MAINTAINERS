@@ -562,6 +562,8 @@ W: https://github.com/google/android-emulator-hypervisor-driver
 S: Maintained
 F: include/sysemu/aehd-interface.h
 F: include/sysemu/aehd.h
+F: target/i386/aehd/
+F: hw/i386/aehd/
 
 Hosts
 -----

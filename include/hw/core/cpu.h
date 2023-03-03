@@ -400,6 +400,13 @@ struct CPUState {
     uint32_t kvm_fetch_index;
     uint64_t dirty_pages;
 
+    /* Only used in AEHD */
+#ifdef _WIN32
+    HANDLE aehd_fd;
+    struct AEHDState *aehd_state;
+    struct aehd_run *aehd_run;
+#endif
+
     /* Use by accel-block: CPU is executing an ioctl() */
     QemuLockCnt in_ioctl_lock;
 
