@@ -66,6 +66,8 @@ int aehd_arch_release_virq_post(int virq);
 int aehd_set_irq(AEHDState *s, int irq, int level);
 int aehd_irqchip_send_msi(AEHDState *s, MSIMessage msg);
 
+void aehd_irqchip_add_irq_route(AEHDState *s, int gsi, int irqchip, int pin);
+
 void aehd_put_apic_state(DeviceState *d, struct aehd_lapic_state *kapic);
 void aehd_get_apic_state(DeviceState *d, struct aehd_lapic_state *kapic);
 
@@ -73,5 +75,7 @@ void aehd_get_apic_state(DeviceState *d, struct aehd_lapic_state *kapic);
 
 void aehd_irqchip_commit_routes(AEHDState *s);
 void aehd_irqchip_release_virq(AEHDState *s, int virq);
+
+void aehd_pc_setup_irq_routing(bool pci_enabled);
 
 #endif

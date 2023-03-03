@@ -33,6 +33,7 @@
 #include "qapi/visitor.h"
 #include "sysemu/qtest.h"
 #include "sysemu/whpx.h"
+#include "sysemu/aehd.h"
 #include "sysemu/numa.h"
 #include "sysemu/replay.h"
 #include "sysemu/sysemu.h"
@@ -641,6 +642,8 @@ void ioapic_init_gsi(GSIState *gsi_state, const char *parent_name)
     assert(parent_name);
     if (kvm_ioapic_in_kernel()) {
         dev = qdev_new(TYPE_KVM_IOAPIC);
+    } else if (aehd_enabled()) {
+        dev = qdev_new(TYPE_AEHD_IOAPIC);
     } else {
         dev = qdev_new(TYPE_IOAPIC);
     }
