@@ -553,6 +553,16 @@ S: Maintained
 F: include/sysemu/nvmm.h
 F: target/i386/nvmm/
 
+Guest CPU Cores (AEHD)
+---------------------
+Android Emulator hypervisor driver CPU support
+M: Haitao Shan <haitao.shan@google.com>
+L: emu-dev@google.com
+W: https://github.com/google/android-emulator-hypervisor-driver
+S: Maintained
+F: include/sysemu/aehd-interface.h
+F: include/sysemu/aehd.h
+
 Hosts
 -----
 LINUX
