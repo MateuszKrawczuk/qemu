@@ -13,6 +13,7 @@
 
 #include "hw/core/cpu.h"
 #include "sysemu/kvm.h"
+#include "sysemu/aehd.h"
 #include "sysemu/hvf.h"
 #include "sysemu/whpx.h"
 #include "sysemu/nvmm.h"
