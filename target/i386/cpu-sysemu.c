@@ -22,6 +22,8 @@
 #include "sysemu/kvm.h"
 #include "sysemu/xen.h"
 #include "sysemu/whpx.h"
+#include "sysemu/aehd.h"
+#include "kvm/kvm_i386.h"
 #include "qapi/error.h"
 #include "qapi/qapi-visit-run-state.h"
 #include "qapi/qmp/qdict.h"
@@ -258,6 +260,8 @@ APICCommonClass *apic_get_class(Error **errp)
             return NULL;
         }
         apic_type = "kvm-apic";
+    } else if (aehd_enabled()) {
+        apic_type = "aehd-apic";
     } else if (xen_enabled()) {
         apic_type = "xen-apic";
     } else if (whpx_apic_in_platform()) {
