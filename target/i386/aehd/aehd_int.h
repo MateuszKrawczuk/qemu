@@ -45,6 +45,6 @@ struct AEHDState {
 };
 
 void aehd_memory_listener_register(AEHDState *s, AEHDMemoryListener *kml,
-                                  AddressSpace *as, int as_id);
+                                   AddressSpace *as, int as_id);
 
 #endif

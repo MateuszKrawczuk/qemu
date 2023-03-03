@@ -1209,7 +1209,7 @@ bool x86_machine_is_smm_enabled(const X86MachineState *x86ms)
         return false;
     }
 
-    if (tcg_enabled() || qtest_enabled()) {
+    if (tcg_enabled() || aehd_enabled() || qtest_enabled()) {
         smm_available = true;
     } else if (kvm_enabled()) {
         smm_available = kvm_has_smm();
