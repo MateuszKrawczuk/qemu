@@ -1379,6 +1379,8 @@ void pc_i8259_create(ISABus *isa_bus, qemu_irq *i8259_irqs)
 
     if (kvm_pic_in_kernel()) {
         i8259 = kvm_i8259_init(isa_bus);
+    } else if (aehd_enabled()) {
+        i8259 = aehd_i8259_init(isa_bus);
     } else if (xen_enabled()) {
         i8259 = xen_interrupt_controller_init();
     } else {
