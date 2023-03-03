@@ -124,6 +124,20 @@ static void aehd_add_routing_entry(AEHDState *s,
     set_gsi(s, entry->gsi);
 }
 
+void aehd_irqchip_add_irq_route(AEHDState *s, int irq, int irqchip, int pin)
+{
+    struct aehd_irq_routing_entry e = {};
+
+    assert(pin < s->gsi_count);
+
+    e.gsi = irq;
+    e.type = AEHD_IRQ_ROUTING_IRQCHIP;
+    e.flags = 0;
+    e.u.irqchip.irqchip = irqchip;
+    e.u.irqchip.pin = pin;
+    aehd_add_routing_entry(s, &e);
+}
+
 void aehd_irqchip_release_virq(AEHDState *s, int virq)
 {
     struct aehd_irq_routing_entry *e;
