@@ -31,6 +31,11 @@ kvm_report_irq_delivered(int irq_delivered) "coalescing %d"
 kvm_reset_irq_delivered(int irq_delivered) "old coalescing %d"
 kvm_get_irq_delivered(int irq_delivered) "returning coalescing %d"
 
+# gvm_irqcount.c
+gvm_report_irq_delivered(int irq_delivered) "coalescing %d"
+gvm_reset_irq_delivered(int irq_delivered) "old coalescing %d"
+gvm_get_irq_delivered(int irq_delivered) "returning coalescing %d"
+
 # slavio_intctl.c
 slavio_intctl_mem_readl(uint32_t cpu, uint64_t addr, uint32_t ret) "read cpu %d reg 0x%"PRIx64" = 0x%x"
 slavio_intctl_mem_writel(uint32_t cpu, uint64_t addr, uint32_t val) "write cpu %d reg 0x%"PRIx64" = 0x%x"

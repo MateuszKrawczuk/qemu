@@ -35,6 +35,7 @@ if config_all_devices.has_key('CONFIG_APIC') or \
    config_all_devices.has_key('CONFIG_I8259') or \
    config_all_devices.has_key('CONFIG_MC146818RTC')
     softmmu_ss.add(files('kvm_irqcount.c'))
+    softmmu_ss.add(files('gvm_irqcount.c'))
 endif
 
 specific_ss.add(when: 'CONFIG_APIC', if_true: files('apic.c', 'apic_common.c'))

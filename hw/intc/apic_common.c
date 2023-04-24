@@ -26,10 +26,12 @@
 #include "hw/i386/apic.h"
 #include "hw/i386/apic_internal.h"
 #include "hw/intc/kvm_irqcount.h"
+#include "hw/intc/gvm_irqcount.h"
 #include "trace.h"
 #include "hw/boards.h"
 #include "sysemu/hax.h"
 #include "sysemu/kvm.h"
+#include "sysemu/gvm.h"
 #include "hw/qdev-properties.h"
 #include "hw/sysbus.h"
 #include "migration/vmstate.h"
@@ -246,7 +248,11 @@ static void apic_reset_common(DeviceState *dev)
     s->apicbase = APIC_DEFAULT_ADDRESS | bsp | MSR_IA32_APICBASE_ENABLE;
     s->id = s->initial_apic_id;
 
-    kvm_reset_irq_delivered();
+    if(gvm_enabled()){
+        gvm_reset_irq_delivered();
+    } else{
+        kvm_reset_irq_delivered();
+    }
 
     s->vapic_paddr = 0;
     info->vapic_base_update(s);

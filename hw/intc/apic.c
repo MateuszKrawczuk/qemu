@@ -24,9 +24,11 @@
 #include "hw/intc/ioapic.h"
 #include "hw/intc/i8259.h"
 #include "hw/intc/kvm_irqcount.h"
+#include "hw/intc/gvm_irqcount.h"
 #include "hw/pci/msi.h"
 #include "qemu/host-utils.h"
 #include "sysemu/kvm.h"
+#include "sysemu/gvm.h"
 #include "trace.h"
 #include "hw/i386/apic-msidef.h"
 #include "qapi/error.h"
@@ -401,7 +403,11 @@ void apic_poll_irq(DeviceState *dev)
 
 static void apic_set_irq(APICCommonState *s, int vector_num, int trigger_mode)
 {
-    kvm_report_irq_delivered(!apic_get_bit(s->irr, vector_num));
+    if(gvm_enabled()) {
+        gvm_report_irq_delivered(!apic_get_bit(s->irr, vector_num));
+    } else {
+        kvm_report_irq_delivered(!apic_get_bit(s->irr, vector_num));
+    }
 
     apic_set_bit(s->irr, vector_num);
     if (trigger_mode)

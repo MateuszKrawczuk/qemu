@@ -400,6 +400,11 @@ struct CPUState {
     uint32_t kvm_fetch_index;
     uint64_t dirty_pages;
 
+#ifdef _WIN32
+    HANDLE gvm_fd;
+#endif
+    struct GVMState *gvm_state;
+    struct gvm_run *gvm_run;
     /* Use by accel-block: CPU is executing an ioctl() */
     QemuLockCnt in_ioctl_lock;
 

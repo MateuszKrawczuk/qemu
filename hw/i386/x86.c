@@ -57,6 +57,7 @@
 #include "standard-headers/asm-x86/bootparam.h"
 #include CONFIG_DEVICES
 #include "kvm/kvm_i386.h"
+#include "gvm/gvm_i386.h"
 
 #ifdef CONFIG_XEN_EMU
 #include "hw/xen/xen.h"
@@ -641,6 +642,8 @@ void ioapic_init_gsi(GSIState *gsi_state, const char *parent_name)
     assert(parent_name);
     if (kvm_ioapic_in_kernel()) {
         dev = qdev_new(TYPE_KVM_IOAPIC);
+    }else if (gvm_enabled()) {
+        dev = qdev_new(TYPE_GVM_IOAPIC);
     } else {
         dev = qdev_new(TYPE_IOAPIC);
     }
@@ -1210,6 +1213,8 @@ bool x86_machine_is_smm_enabled(const X86MachineState *x86ms)
         smm_available = true;
     } else if (kvm_enabled()) {
         smm_available = kvm_has_smm();
+    } else if (gvm_enabled()) {
+        smm_available = true;
     }
 
     if (smm_available) {
