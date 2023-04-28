@@ -19,9 +19,12 @@ softmmu_ss.add(files(
   'fd.c',
   'global_state.c',
   'migration-hmp-cmds.c',
+  'migration-stats.c',
   'migration.c',
   'multifd.c',
   'multifd-zlib.c',
+  'multifd-zlib.c',
+  'ram-compress.c',
   'options.c',
   'postcopy-ram.c',
   'savevm.c',
@@ -37,4 +40,6 @@ endif
 softmmu_ss.add(when: zstd, if_true: files('multifd-zstd.c'))
 
 specific_ss.add(when: 'CONFIG_SOFTMMU',
-                if_true: files('dirtyrate.c', 'ram.c', 'target.c'))
+                if_true: files('dirtyrate.c',
+                               'ram.c',
+                               'target.c'))
