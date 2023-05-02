@@ -145,6 +145,11 @@ if cpu in ['x86', 'x86_64']
     'CONFIG_WHPX': ['i386-softmmu', 'x86_64-softmmu'],
   }
 endif
+if cpu in ['x86_64']
+  accelerator_targets += {
+    'CONFIG_AEHD': ['i386-softmmu', 'x86_64-softmmu'],
+  }
+endif
 
 modular_tcg = []
 # Darwin does not support references to thread-local variables in modules
@@ -649,6 +654,13 @@ accelerators = []
 if get_option('kvm').allowed() and targetos == 'linux'
   accelerators += 'CONFIG_KVM'
 endif
+if get_option('aehd').allowed() and targetos == 'windows'
+  if get_option('aehd').enabled() and host_machine.cpu() != 'x86_64'
+    error('AEHD requires 64-bit host')
+  else
+    accelerators += 'CONFIG_AEHD'
+  endif
+endif
 if get_option('whpx').allowed() and targetos == 'windows'
   if get_option('whpx').enabled() and host_machine.cpu() != 'x86_64'
     error('WHPX requires 64-bit host')
@@ -700,6 +712,9 @@ endif
 
 if 'CONFIG_KVM' not in accelerators and get_option('kvm').enabled()
   error('KVM not available on this platform')
+endif
+if 'CONFIG_AEHD' not in accelerators and get_option('aehd').enabled()
+  error('AEHD not available on this platform')
 endif
 if 'CONFIG_HVF' not in accelerators and get_option('hvf').enabled()
   error('HVF not available on this platform')
@@ -4150,6 +4165,7 @@ endif
 summary_info = {}
 if have_system
   summary_info += {'KVM support':       config_all.has_key('CONFIG_KVM')}
+  summary_info += {'AEHD support':      config_all.has_key('CONFIG_AEHD')}
   summary_info += {'HVF support':       config_all.has_key('CONFIG_HVF')}
   summary_info += {'WHPX support':      config_all.has_key('CONFIG_WHPX')}
   summary_info += {'NVMM support':      config_all.has_key('CONFIG_NVMM')}
